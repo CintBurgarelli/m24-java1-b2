@@ -8,6 +8,24 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class Abelha extends Actor
 {
+    //Constantes
+    public static int PONTOS = 100;
+    //Campos ou fields
+    public int vidas = 0;
+    public int score = 0;
+    //Criando campo do tipo conjunto de imagens
+    private GreenfootImage[] imagens;
+    //Constructors
+    public Abelha(){
+        vidas = 3;
+        score = 0;
+        //Definir o tamanho do conjunto 
+        imagens = new GreenfootImage[4]; //definindo o tamanho do conjunto em 4 elementos 
+        //Definir as imagens
+        for (int i=0;i<4;i++){
+            imagens[i] = new GreenfootImage("bee0"+(i+1)+".png");
+        }
+    }
     /**
      * Método que será executado quando apertado o botão Act ou Run
      */
@@ -27,6 +45,12 @@ public class Abelha extends Actor
     verificarPosicao();
     //Verifica se toca em uma mosca
     capturaMosca();
+    //Verifica se foi capturada pela aranha
+    capturaPelaAranha();
+    //Mostrando vidas
+    mostrarVidas();
+    //Mostra score
+    mostrarScore();
  }
  /**
   * Método que verifica se está na direita do mundo
@@ -84,11 +108,36 @@ public class Abelha extends Actor
      if (isTouching(Mosca.class)) {
          //Remove a mosca tocada.
          removeTouching(Mosca.class);
+         //Aumentar score
+         score += PONTOS; //score + score + PONTOS
          //Adicionando uma nova mosca no mundo
          int pX = Greenfoot.getRandomNumber(getWorld().getWidth());
          int pY = Greenfoot.getRandomNumber(getWorld().getHeight());
-         getWorld().addObject(new Mosca(), pX, pY);
+         getWorld().addObject(new Mosca(Greenfoot.getRandomNumber(5)+1, Greenfoot.getRandomNumber(359)), pX, pY);
      }
+ }
+ /**
+  * Método que irá capturar a abelha pela aranha
+  */
+ public void capturaPelaAranha(){
+     if (isTouching(Aranha.class)){
+         int pX = Greenfoot.getRandomNumber(getWorld().getWidth());
+         int pY = Greenfoot.getRandomNumber(getWorld().getHeight());
+         setLocation(pX, pY);
+         vidas--; //decremento
+         vidas -=1; //vidas = vidas -1; 
+         if (vidas<1){
+             Greenfoot.stop();
+             getWorld().showText("GAMER OVER", 400, 300);
+         }
+     }
+ }
+
+ public void mostrarVidas(){
+     getWorld().showText("Vidas: " + vidas, 60, 20);
+ }
+ public void mostrarScore(){
+     getWorld().showText("Score: " + score, 700, 20);
  }
 }
 
