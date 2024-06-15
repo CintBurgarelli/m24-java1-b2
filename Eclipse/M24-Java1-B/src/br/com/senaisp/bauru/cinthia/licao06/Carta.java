@@ -27,9 +27,12 @@ public class Carta {
 				     "│  $  │\n"+
 					 "│   ##│\n"+
 				     "└─────┘\n";
-		txt = txt.replaceFirst("##", numero);
+		txt = txt.replaceFirst("##", numero + 
+				         (numero.equals("10") ? "" : " "));
 		txt = txt.replace("$", naipe);
-		txt = txt.replaceFirst("##", numero);
+		txt = txt.replaceFirst("##",  
+				         ( numero.equals("10") ? "" : " ") + 
+				         numero);
 		return txt;
 	}
 	
