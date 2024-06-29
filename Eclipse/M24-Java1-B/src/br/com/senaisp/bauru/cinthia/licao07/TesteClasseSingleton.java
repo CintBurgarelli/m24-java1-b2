@@ -1,0 +1,17 @@
+package br.com.senaisp.bauru.cinthia.licao07;
+
+public class TesteClasseSingleton {
+
+	public static void main(String[] args) {
+		ClasseSingleton obj01 = new ClasseSingleton.getInstancia();
+		ClasseSingleton obj02 = new ClasseSingleton.getInstancia();
+		//Alterando os dados
+		System.out.println(obj01);
+		System.out.println(obj02);
+		//
+		obj01.setNome("Roberval");
+		System.out.println(obj02.getNome());
+
+	}
+
+}
